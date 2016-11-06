@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 class Solution {
 	//Lesson 1: Iterations
@@ -34,6 +36,7 @@ class Solution {
     		}
 		return A[N-1];
     }
+    public static int[] CyclicRotation(int[] A, int K){
     	int N = A.length;
     	if(N == 0)
     		return A;
@@ -49,6 +52,28 @@ class Solution {
     			solution[i] = A[position-N];
     	}
     	return solution;
+    }
+    // Lesson 4: Time Complexity
+    public static int TapeEquilibrium(int[] A){
+    	int N = A.length;
+    	int[] dis =new int[N-1];
+    	int s =0;
+    	int total = 0;
+    	for(int i=0; i<N ; i++)
+    		total += A[i];
+    	for(int i=0; i<N-1 ; i++){
+    		s +=A[i];
+    		dis[i]= s;
+    	}
+    	for(int i=0 ; i<N-1 ; i++){
+    		dis[i] =Math.abs( 2*dis[i] - total);
+    	}
+    	int result = dis[0];
+    	for(int i=0 ; i<N-1 ; i++){
+    		if(dis[i] <= result)
+    			result = dis[i];
+    	}
+    	return result;    	
     }
     
     public static void main(String[] args){
