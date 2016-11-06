@@ -76,6 +76,27 @@ class Solution {
     	return result;    	
     }
     
+    public int FrogJmp(int X, int Y, int D) {
+    	int n = (Y-X)/D;
+    	if((Y-X)%D ==0)
+    		return n;
+    	else return n+1;
+       
+    }
+    public int PermMissingElem(int[] A){
+    	int N = A.length;
+    	if(N==0)
+    		return 1;
+    	Arrays.sort(A);
+    	for(int i = 1; i<N+1 ;i++){
+    		if (A[i-1] != i){
+    			return i+1;
+    		}
+    	}
+    	
+		return N+1;
+    }
+    
     public static void main(String[] args){
     	Solution T = new Solution();
     }
