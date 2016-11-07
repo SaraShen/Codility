@@ -53,7 +53,7 @@ class Solution {
     	}
     	return solution;
     }
-    // Lesson 4: Time Complexity
+    // Lesson 3: Time Complexity
     public static int TapeEquilibrium(int[] A){
     	int N = A.length;
     	int[] dis =new int[N-1];
@@ -95,6 +95,29 @@ class Solution {
     	}
     	
 		return N+1;
+    }
+    
+    //Lesson 5
+    public int PassingCars(int[] A) {
+    	 int N = A.length;
+         int count =0;
+         int result =0;
+         int flag =0;
+         if(N==1)
+         	return 0;
+         for(int i=0 ; i<N ; i++){
+         	if(A[i] == 0){
+         	    flag =1;
+         		count++;
+         	}
+         	else{
+         	    if(flag ==1)
+         		    result += count;
+         	    if(result>1000000000)
+         		    return -1;
+         	}
+         } 
+        return result;
     }
     
     public static void main(String[] args){
