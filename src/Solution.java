@@ -74,8 +74,7 @@ class Solution {
     			result = dis[i];
     	}
     	return result;    	
-    }
-    
+    }   
     public int FrogJmp(int X, int Y, int D) {
     	int n = (Y-X)/D;
     	if((Y-X)%D ==0)
@@ -96,7 +95,95 @@ class Solution {
     	
 		return N+1;
     }
-    
+    //lesson 4
+    public static int PermCheck(int[] A){
+		int N = A.length;
+		HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
+		for(int i = 0;i<N;i++){
+			if(map.containsKey(A[i]) || A[i] >= N || A[i]<=0)
+				return 0;
+			map.put(A[i], i);
+		}
+		return 1;
+	}
+    public int FrogRiverOne(int X, int[] A) {
+    	int N = A.length;
+    	HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
+    	for(int i = 1; i<=X ; i++ )// i is position
+    		map.put(i, N+1);//position, min(time)
+    	for(int i = 0; i<N ; i++){//i is time,A[i] is position
+    		if(map.containsKey(A[i])){
+    			if(i<map.get(A[i]))
+    				map.put(A[i], i);
+    		}
+    	}
+    	int time = 0;
+    	if(map.containsValue(N+1))
+    		return -1;
+    	else
+    		for(int i =1; i <= X ;i++)
+    			if(map.get(i)>time)
+    				time = map.get(i);			
+		return time;       
+    }
+    public int MissingInteger(int[] A) {
+    	int N = A.length;
+    	HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
+    	for(int i = 0; i<N ; i++ )// value does not matter, use map for unique key
+    		if(!map.containsKey(A[i]))
+    			map.put(A[i], i);
+    	int max = 1;
+    	for(int i = 0; i< map.size() ;i++){
+    		if(map.containsKey(max))
+    			max++;
+    		else 
+    			return max;
+    	}
+		return max;  
+    }   
+    public int[] MaxCounters(int N, int[] A) {
+    	//time complexity:O(N*M)
+    	int[] result = new int[N];
+        int max = 0;
+        for(int i= 0;i<N ;i++)
+     	   result[i] = 0;
+        int M = A.length;
+        for(int i = 0; i<M; i++){
+     	   if(A[i]!= N+1){
+     		   result[A[i]-1]++;
+     		   if ( result[A[i]-1] > max)
+     			   max = result[A[i]-1];
+     	   }
+     	   else{
+     		   for(int j= 0;j<N ;j++)
+     	    	  result[j]= max;
+     	   }  
+        }
+        return result;
+    }
+    public int[] MaxCounters2(int N , int[] A){
+    	//time complexity:O(N+M)
+    	int[] counters = new int[N];
+    	int M = A.length;
+    	int max = 0;
+    	int temp_max = 0;
+    	for(int i=0;i<M;i++){
+    		int index = A[i]-1;
+    		if(A[i] == N+1){//do max
+    			temp_max = max;
+    		}else{
+    			if(counters[index] <temp_max)
+    				counters[index] = temp_max;
+    			counters[index]++;
+    			if(counters[index] > max)
+    				max = counters[index];
+    		}
+    	}
+    	for(int i=0; i< N;i++)
+    		if(counters[i]<temp_max)
+    			counters[i]=temp_max;
+    	return counters;
+    }
     //Lesson 5
     public int PassingCars(int[] A) {
     	 int N = A.length;
@@ -119,6 +206,8 @@ class Solution {
          } 
         return result;
     }
+    
+    
     
     public static void main(String[] args){
     	Solution T = new Solution();
